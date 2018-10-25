@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzdn.ucenter.dao.mapper.api.CpyActivityApiMapper">
+  <update id="changeStatusById" parameterType="int">
+  UPDATE `lee`.`cpy_activity`
+  SET `activity_status`=CASE WHEN activity_status='1' THEN '0' ELSE '1'	END
+  WHERE activity_id = #{id};
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

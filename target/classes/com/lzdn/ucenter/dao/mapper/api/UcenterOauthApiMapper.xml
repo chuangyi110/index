@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzdn.ucenter.dao.mapper.api.UcenterOauthApiMapper">
+  <resultMap id="ucenterOauthMap" type="com.lzdn.ucenter.dto.UcenterOauthDto">
+    <id column="user_oauth_id" jdbcType="INTEGER" property="userOauthId"/>
+    <result column="user_id" jdbcType="INTEGER" property="userId"/>
+    <result column="oauth_id" jdbcType="INTEGER" property="oauthId"/>
+    <result column="name" jdbcType="VARCHAR" property="oauthName"/>
+    <result column="open_id" jdbcType="VARCHAR" property="openId"/>
+    <result column="status" jdbcType="TINYINT" property="status"/>
+    <result column="ctime" jdbcType="BIGINT" property="ctime"/>
+  </resultMap>
+  <select id="selectOauthByUserId" parameterType="int" resultMap="ucenterOauthMap">
+        select
+          user_oauth_id,user_id,uuo.oauth_id,name,open_id,status,ctime
+        from ucenter_user_oauth  uuo left join ucenter_oauth uo on uuo.oauth_id = uo.oauth_id
+        where user_id=#{userId}
+    </select>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

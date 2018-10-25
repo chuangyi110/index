@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzdn.ucenter.dao.mapper.api.UcenterUserApiMapper">
+    <resultMap id="ResultUcenterUserDto" type="com.lzdn.ucenter.dto.UcenterUserDto">
+        <id column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+        <result column="sex" jdbcType="TINYINT" property="sex" />
+        <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+        <result column="ctime" jdbcType="BIGINT" property="ctime" />
+        <result column="cip" jdbcType="VARCHAR" property="cip" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="last_login_time" jdbcType="BIGINT" property="lastLoginTime" />
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
+        <collection property="ucenterOauthDtoList" column="{user_id=user_id}" javaType="ArrayList" ofType="com.lzdn.ucenter.dto.UcenterOauthDto" select="selectOauth"/>
+    </resultMap>
+    <resultMap id="ucenterOauthMap" type="com.lzdn.ucenter.dto.UcenterOauthDto">
+        <id column="user_oauth_id" jdbcType="INTEGER" property="userOauthId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="oauth_id" jdbcType="INTEGER" property="oauthId"/>
+        <result column="name" jdbcType="VARCHAR" property="oauthName"/>
+        <result column="open_id" jdbcType="VARCHAR" property="openId"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="ctime" jdbcType="BIGINT" property="ctime"/>
+    </resultMap>
+    <sql id="user_List">
+        user_id,nickname,sex,avatar,ctime,cip,phone,email,last_login_time,last_login_ip
+    </sql>
+    <select id="selectFullMessageForOffsetPage" resultMap="ResultUcenterUserDto" parameterType="map">
+      select
+        <include refid="user_List"/>
+      from ucenter_user
+      <if test="ucenterTableAo.search!=null and ucenterTableAo.search!=''">
+          <bind name="search" value="'%' + ucenterTableAo.search + '%'" />
+          where nickname = #{search}
+      </if>
+      order by ${ucenterTableAo.sort} ${ucenterTableAo.order}
+      limit ${ucenterTableAo.limit} offset ${ucenterTableAo.offset}
+    </select>
+    <select id="selectOauth" parameterType="map" resultMap="ucenterOauthMap">
+        select
+        user_oauth_id,user_id,uuo.oauth_id,name,open_id,status,ctime
+        from ucenter_user_oauth  uuo left join ucenter_oauth uo on uuo.oauth_id = uo.oauth_id
+        where user_id=#{user_id}
+    </select>
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzdn.ucenter.dao.mapper.api.UcenterUserOauthApiMapper">
+   <update id="updateStatusByPrimaryKey" parameterType="list">
+       update ucenter_user_oauth
+       set status = 1
+       where oauth_id in
+       <foreach collection="array" index="index" item="item" separator="," open="(" close=")">
+           #{item}
+       </foreach>
+   </update>
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

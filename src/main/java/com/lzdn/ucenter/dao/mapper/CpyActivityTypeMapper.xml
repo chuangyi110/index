@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzdn.ucenter.dao.mapper.CpyActivityTypeMapper">
+  <resultMap id="BaseResultMap" type="com.lzdn.ucenter.dao.model.CpyActivityType">
+    <id column="activity_type_id" jdbcType="INTEGER" property="activityTypeId" />
+    <result column="activity_type" jdbcType="VARCHAR" property="activityType" />
+    <result column="activity_remark" jdbcType="VARCHAR" property="activityRemark" />
+    <result column="relationship_fields" jdbcType="VARCHAR" property="relationshipFields" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    activity_type_id, activity_type, activity_remark, relationship_fields
+  </sql>
+  <select id="selectByExample" parameterType="com.lzdn.ucenter.dao.model.CpyActivityTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cpy_activity_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cpy_activity_type
+    where activity_type_id = #{activityTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cpy_activity_type
+    where activity_type_id = #{activityTypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lzdn.ucenter.dao.model.CpyActivityTypeExample">
+    delete from cpy_activity_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lzdn.ucenter.dao.model.CpyActivityType">
+    insert into cpy_activity_type (activity_type_id, activity_type, activity_remark, 
+      relationship_fields)
+    values (#{activityTypeId,jdbcType=INTEGER}, #{activityType,jdbcType=VARCHAR}, #{activityRemark,jdbcType=VARCHAR}, 
+      #{relationshipFields,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lzdn.ucenter.dao.model.CpyActivityType">
+    insert into cpy_activity_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activityTypeId != null">
+        activity_type_id,
+      </if>
+      <if test="activityType != null">
+        activity_type,
+      </if>
+      <if test="activityRemark != null">
+        activity_remark,
+      </if>
+      <if test="relationshipFields != null">
+        relationship_fields,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activityTypeId != null">
+        #{activityTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="activityType != null">
+        #{activityType,jdbcType=VARCHAR},
+      </if>
+      <if test="activityRemark != null">
+        #{activityRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="relationshipFields != null">
+        #{relationshipFields,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lzdn.ucenter.dao.model.CpyActivityTypeExample" resultType="java.lang.Long">
+    select count(*) from cpy_activity_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cpy_activity_type
+    <set>
+      <if test="record.activityTypeId != null">
+        activity_type_id = #{record.activityTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityType != null">
+        activity_type = #{record.activityType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activityRemark != null">
+        activity_remark = #{record.activityRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relationshipFields != null">
+        relationship_fields = #{record.relationshipFields,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cpy_activity_type
+    set activity_type_id = #{record.activityTypeId,jdbcType=INTEGER},
+      activity_type = #{record.activityType,jdbcType=VARCHAR},
+      activity_remark = #{record.activityRemark,jdbcType=VARCHAR},
+      relationship_fields = #{record.relationshipFields,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lzdn.ucenter.dao.model.CpyActivityType">
+    update cpy_activity_type
+    <set>
+      <if test="activityType != null">
+        activity_type = #{activityType,jdbcType=VARCHAR},
+      </if>
+      <if test="activityRemark != null">
+        activity_remark = #{activityRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="relationshipFields != null">
+        relationship_fields = #{relationshipFields,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where activity_type_id = #{activityTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lzdn.ucenter.dao.model.CpyActivityType">
+    update cpy_activity_type
+    set activity_type = #{activityType,jdbcType=VARCHAR},
+      activity_remark = #{activityRemark,jdbcType=VARCHAR},
+      relationship_fields = #{relationshipFields,jdbcType=VARCHAR}
+    where activity_type_id = #{activityTypeId,jdbcType=INTEGER}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

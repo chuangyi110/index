@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzdn.ucenter.dao.mapper.CpyCompanyMapper">
+  <resultMap id="BaseResultMap" type="com.lzdn.ucenter.dao.model.CpyCompany">
+    <id column="company_id" jdbcType="INTEGER" property="companyId" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="company_avatar" jdbcType="VARCHAR" property="companyAvatar" />
+    <result column="company_license" jdbcType="VARCHAR" property="companyLicense" />
+    <result column="contry" jdbcType="INTEGER" property="contry" />
+    <result column="provinces_id" jdbcType="INTEGER" property="provincesId" />
+    <result column="cities_id" jdbcType="INTEGER" property="citiesId" />
+    <result column="areas_id" jdbcType="INTEGER" property="areasId" />
+    <result column="company_status" jdbcType="TINYINT" property="companyStatus" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="fax" jdbcType="VARCHAR" property="fax" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    company_id, company_name, company_avatar, company_license, contry, provinces_id, 
+    cities_id, areas_id, company_status, address, tel, fax, email
+  </sql>
+  <select id="selectByExample" parameterType="com.lzdn.ucenter.dao.model.CpyCompanyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cpy_company
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cpy_company
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cpy_company
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lzdn.ucenter.dao.model.CpyCompanyExample">
+    delete from cpy_company
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lzdn.ucenter.dao.model.CpyCompany">
+    insert into cpy_company (company_id, company_name, company_avatar, 
+      company_license, contry, provinces_id, 
+      cities_id, areas_id, company_status, 
+      address, tel, fax, 
+      email)
+    values (#{companyId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{companyAvatar,jdbcType=VARCHAR}, 
+      #{companyLicense,jdbcType=VARCHAR}, #{contry,jdbcType=INTEGER}, #{provincesId,jdbcType=INTEGER}, 
+      #{citiesId,jdbcType=INTEGER}, #{areasId,jdbcType=INTEGER}, #{companyStatus,jdbcType=TINYINT}, 
+      #{address,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lzdn.ucenter.dao.model.CpyCompany">
+    insert into cpy_company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="companyAvatar != null">
+        company_avatar,
+      </if>
+      <if test="companyLicense != null">
+        company_license,
+      </if>
+      <if test="contry != null">
+        contry,
+      </if>
+      <if test="provincesId != null">
+        provinces_id,
+      </if>
+      <if test="citiesId != null">
+        cities_id,
+      </if>
+      <if test="areasId != null">
+        areas_id,
+      </if>
+      <if test="companyStatus != null">
+        company_status,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="fax != null">
+        fax,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="companyId != null">
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAvatar != null">
+        #{companyAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="companyLicense != null">
+        #{companyLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="contry != null">
+        #{contry,jdbcType=INTEGER},
+      </if>
+      <if test="provincesId != null">
+        #{provincesId,jdbcType=INTEGER},
+      </if>
+      <if test="citiesId != null">
+        #{citiesId,jdbcType=INTEGER},
+      </if>
+      <if test="areasId != null">
+        #{areasId,jdbcType=INTEGER},
+      </if>
+      <if test="companyStatus != null">
+        #{companyStatus,jdbcType=TINYINT},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lzdn.ucenter.dao.model.CpyCompanyExample" resultType="java.lang.Long">
+    select count(*) from cpy_company
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cpy_company
+    <set>
+      <if test="record.companyId != null">
+        company_id = #{record.companyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyName != null">
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyAvatar != null">
+        company_avatar = #{record.companyAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyLicense != null">
+        company_license = #{record.companyLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contry != null">
+        contry = #{record.contry,jdbcType=INTEGER},
+      </if>
+      <if test="record.provincesId != null">
+        provinces_id = #{record.provincesId,jdbcType=INTEGER},
+      </if>
+      <if test="record.citiesId != null">
+        cities_id = #{record.citiesId,jdbcType=INTEGER},
+      </if>
+      <if test="record.areasId != null">
+        areas_id = #{record.areasId,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyStatus != null">
+        company_status = #{record.companyStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null">
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null">
+        fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cpy_company
+    set company_id = #{record.companyId,jdbcType=INTEGER},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      company_avatar = #{record.companyAvatar,jdbcType=VARCHAR},
+      company_license = #{record.companyLicense,jdbcType=VARCHAR},
+      contry = #{record.contry,jdbcType=INTEGER},
+      provinces_id = #{record.provincesId,jdbcType=INTEGER},
+      cities_id = #{record.citiesId,jdbcType=INTEGER},
+      areas_id = #{record.areasId,jdbcType=INTEGER},
+      company_status = #{record.companyStatus,jdbcType=TINYINT},
+      address = #{record.address,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      fax = #{record.fax,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lzdn.ucenter.dao.model.CpyCompany">
+    update cpy_company
+    <set>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAvatar != null">
+        company_avatar = #{companyAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="companyLicense != null">
+        company_license = #{companyLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="contry != null">
+        contry = #{contry,jdbcType=INTEGER},
+      </if>
+      <if test="provincesId != null">
+        provinces_id = #{provincesId,jdbcType=INTEGER},
+      </if>
+      <if test="citiesId != null">
+        cities_id = #{citiesId,jdbcType=INTEGER},
+      </if>
+      <if test="areasId != null">
+        areas_id = #{areasId,jdbcType=INTEGER},
+      </if>
+      <if test="companyStatus != null">
+        company_status = #{companyStatus,jdbcType=TINYINT},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lzdn.ucenter.dao.model.CpyCompany">
+    update cpy_company
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      company_avatar = #{companyAvatar,jdbcType=VARCHAR},
+      company_license = #{companyLicense,jdbcType=VARCHAR},
+      contry = #{contry,jdbcType=INTEGER},
+      provinces_id = #{provincesId,jdbcType=INTEGER},
+      cities_id = #{citiesId,jdbcType=INTEGER},
+      areas_id = #{areasId,jdbcType=INTEGER},
+      company_status = #{companyStatus,jdbcType=TINYINT},
+      address = #{address,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

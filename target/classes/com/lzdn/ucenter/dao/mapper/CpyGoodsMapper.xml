@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzdn.ucenter.dao.mapper.CpyGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.lzdn.ucenter.dao.model.CpyGoods">
+    <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pic_path" jdbcType="VARCHAR" property="picPath" />
+    <result column="company_id" jdbcType="INTEGER" property="companyId" />
+    <result column="goods_type_id" jdbcType="INTEGER" property="goodsTypeId" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="goods_status" jdbcType="TINYINT" property="goodsStatus" />
+    <result column="ctime" jdbcType="BIGINT" property="ctime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="price" jdbcType="BIGINT" property="price" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    goods_id, name, pic_path, company_id, goods_type_id, stock, goods_status, ctime, 
+    remark, price
+  </sql>
+  <select id="selectByExample" parameterType="com.lzdn.ucenter.dao.model.CpyGoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cpy_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cpy_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cpy_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lzdn.ucenter.dao.model.CpyGoodsExample">
+    delete from cpy_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lzdn.ucenter.dao.model.CpyGoods">
+    insert into cpy_goods (goods_id, name, pic_path, 
+      company_id, goods_type_id, stock, 
+      goods_status, ctime, remark, 
+      price)
+    values (#{goodsId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{picPath,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=INTEGER}, #{goodsTypeId,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER}, 
+      #{goodsStatus,jdbcType=TINYINT}, #{ctime,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, 
+      #{price,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lzdn.ucenter.dao.model.CpyGoods">
+    insert into cpy_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="picPath != null">
+        pic_path,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="goodsTypeId != null">
+        goods_type_id,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="goodsStatus != null">
+        goods_status,
+      </if>
+      <if test="ctime != null">
+        ctime,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="picPath != null">
+        #{picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTypeId != null">
+        #{goodsTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="goodsStatus != null">
+        #{goodsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lzdn.ucenter.dao.model.CpyGoodsExample" resultType="java.lang.Long">
+    select count(*) from cpy_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cpy_goods
+    <set>
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picPath != null">
+        pic_path = #{record.picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyId != null">
+        company_id = #{record.companyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsTypeId != null">
+        goods_type_id = #{record.goodsTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stock != null">
+        stock = #{record.stock,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsStatus != null">
+        goods_status = #{record.goodsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.ctime != null">
+        ctime = #{record.ctime,jdbcType=BIGINT},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cpy_goods
+    set goods_id = #{record.goodsId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      pic_path = #{record.picPath,jdbcType=VARCHAR},
+      company_id = #{record.companyId,jdbcType=INTEGER},
+      goods_type_id = #{record.goodsTypeId,jdbcType=INTEGER},
+      stock = #{record.stock,jdbcType=INTEGER},
+      goods_status = #{record.goodsStatus,jdbcType=TINYINT},
+      ctime = #{record.ctime,jdbcType=BIGINT},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lzdn.ucenter.dao.model.CpyGoods">
+    update cpy_goods
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="picPath != null">
+        pic_path = #{picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTypeId != null">
+        goods_type_id = #{goodsTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="goodsStatus != null">
+        goods_status = #{goodsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="ctime != null">
+        ctime = #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=BIGINT},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lzdn.ucenter.dao.model.CpyGoods">
+    update cpy_goods
+    set name = #{name,jdbcType=VARCHAR},
+      pic_path = #{picPath,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=INTEGER},
+      goods_type_id = #{goodsTypeId,jdbcType=INTEGER},
+      stock = #{stock,jdbcType=INTEGER},
+      goods_status = #{goodsStatus,jdbcType=TINYINT},
+      ctime = #{ctime,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      price = #{price,jdbcType=BIGINT}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>

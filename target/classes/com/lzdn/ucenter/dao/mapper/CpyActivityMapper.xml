@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzdn.ucenter.dao.mapper.CpyActivityMapper">
+  <resultMap id="BaseResultMap" type="com.lzdn.ucenter.dao.model.CpyActivity">
+    <id column="activity_id" jdbcType="INTEGER" property="activityId" />
+    <result column="activity_name" jdbcType="VARCHAR" property="activityName" />
+    <result column="company_id" jdbcType="INTEGER" property="companyId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="activity_type_id" jdbcType="INTEGER" property="activityTypeId" />
+    <result column="activity_rules" jdbcType="VARCHAR" property="activityRules" />
+    <result column="begin_time" jdbcType="BIGINT" property="beginTime" />
+    <result column="end_time" jdbcType="BIGINT" property="endTime" />
+    <result column="activity_status" jdbcType="TINYINT" property="activityStatus" />
+    <result column="discount" jdbcType="TINYINT" property="discount" />
+    <result column="send_full" jdbcType="TINYINT" property="sendFull" />
+    <result column="send_full_type" jdbcType="TINYINT" property="sendFullType" />
+    <result column="send_full_other_goods_id" jdbcType="BIGINT" property="sendFullOtherGoodsId" />
+    <result column="money_off_type" jdbcType="TINYINT" property="moneyOffType" />
+    <result column="money_off_prerequisite" jdbcType="BIGINT" property="moneyOffPrerequisite" />
+    <result column="money_off" jdbcType="BIGINT" property="moneyOff" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    activity_id, activity_name, company_id, goods_id, activity_type_id, activity_rules, 
+    begin_time, end_time, activity_status, discount, send_full, send_full_type, send_full_other_goods_id, 
+    money_off_type, money_off_prerequisite, money_off
+  </sql>
+  <select id="selectByExample" parameterType="com.lzdn.ucenter.dao.model.CpyActivityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cpy_activity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cpy_activity
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cpy_activity
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lzdn.ucenter.dao.model.CpyActivityExample">
+    delete from cpy_activity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lzdn.ucenter.dao.model.CpyActivity">
+    insert into cpy_activity (activity_id, activity_name, company_id, 
+      goods_id, activity_type_id, activity_rules, 
+      begin_time, end_time, activity_status, 
+      discount, send_full, send_full_type, 
+      send_full_other_goods_id, money_off_type, money_off_prerequisite, 
+      money_off)
+    values (#{activityId,jdbcType=INTEGER}, #{activityName,jdbcType=VARCHAR}, #{companyId,jdbcType=INTEGER}, 
+      #{goodsId,jdbcType=INTEGER}, #{activityTypeId,jdbcType=INTEGER}, #{activityRules,jdbcType=VARCHAR}, 
+      #{beginTime,jdbcType=BIGINT}, #{endTime,jdbcType=BIGINT}, #{activityStatus,jdbcType=TINYINT}, 
+      #{discount,jdbcType=TINYINT}, #{sendFull,jdbcType=TINYINT}, #{sendFullType,jdbcType=TINYINT}, 
+      #{sendFullOtherGoodsId,jdbcType=BIGINT}, #{moneyOffType,jdbcType=TINYINT}, #{moneyOffPrerequisite,jdbcType=BIGINT}, 
+      #{moneyOff,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lzdn.ucenter.dao.model.CpyActivity">
+    insert into cpy_activity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activityId != null">
+        activity_id,
+      </if>
+      <if test="activityName != null">
+        activity_name,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="activityTypeId != null">
+        activity_type_id,
+      </if>
+      <if test="activityRules != null">
+        activity_rules,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="activityStatus != null">
+        activity_status,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
+      <if test="sendFull != null">
+        send_full,
+      </if>
+      <if test="sendFullType != null">
+        send_full_type,
+      </if>
+      <if test="sendFullOtherGoodsId != null">
+        send_full_other_goods_id,
+      </if>
+      <if test="moneyOffType != null">
+        money_off_type,
+      </if>
+      <if test="moneyOffPrerequisite != null">
+        money_off_prerequisite,
+      </if>
+      <if test="moneyOff != null">
+        money_off,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activityId != null">
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="activityName != null">
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="activityTypeId != null">
+        #{activityTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="activityRules != null">
+        #{activityRules,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="activityStatus != null">
+        #{activityStatus,jdbcType=TINYINT},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=TINYINT},
+      </if>
+      <if test="sendFull != null">
+        #{sendFull,jdbcType=TINYINT},
+      </if>
+      <if test="sendFullType != null">
+        #{sendFullType,jdbcType=TINYINT},
+      </if>
+      <if test="sendFullOtherGoodsId != null">
+        #{sendFullOtherGoodsId,jdbcType=BIGINT},
+      </if>
+      <if test="moneyOffType != null">
+        #{moneyOffType,jdbcType=TINYINT},
+      </if>
+      <if test="moneyOffPrerequisite != null">
+        #{moneyOffPrerequisite,jdbcType=BIGINT},
+      </if>
+      <if test="moneyOff != null">
+        #{moneyOff,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lzdn.ucenter.dao.model.CpyActivityExample" resultType="java.lang.Long">
+    select count(*) from cpy_activity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cpy_activity
+    <set>
+      <if test="record.activityId != null">
+        activity_id = #{record.activityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityName != null">
+        activity_name = #{record.activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyId != null">
+        company_id = #{record.companyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityTypeId != null">
+        activity_type_id = #{record.activityTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityRules != null">
+        activity_rules = #{record.activityRules,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginTime != null">
+        begin_time = #{record.beginTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.activityStatus != null">
+        activity_status = #{record.activityStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.discount != null">
+        discount = #{record.discount,jdbcType=TINYINT},
+      </if>
+      <if test="record.sendFull != null">
+        send_full = #{record.sendFull,jdbcType=TINYINT},
+      </if>
+      <if test="record.sendFullType != null">
+        send_full_type = #{record.sendFullType,jdbcType=TINYINT},
+      </if>
+      <if test="record.sendFullOtherGoodsId != null">
+        send_full_other_goods_id = #{record.sendFullOtherGoodsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.moneyOffType != null">
+        money_off_type = #{record.moneyOffType,jdbcType=TINYINT},
+      </if>
+      <if test="record.moneyOffPrerequisite != null">
+        money_off_prerequisite = #{record.moneyOffPrerequisite,jdbcType=BIGINT},
+      </if>
+      <if test="record.moneyOff != null">
+        money_off = #{record.moneyOff,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cpy_activity
+    set activity_id = #{record.activityId,jdbcType=INTEGER},
+    activity_name = #{record.activityName,jdbcType=VARCHAR},
+    company_id = #{record.companyId,jdbcType=INTEGER},
+    goods_id = #{record.goodsId,jdbcType=INTEGER},
+    activity_type_id = #{record.activityTypeId,jdbcType=INTEGER},
+    activity_rules = #{record.activityRules,jdbcType=VARCHAR},
+    begin_time = #{record.beginTime,jdbcType=BIGINT},
+    end_time = #{record.endTime,jdbcType=BIGINT},
+    activity_status = #{record.activityStatus,jdbcType=TINYINT},
+    discount = #{record.discount,jdbcType=TINYINT},
+    send_full = #{record.sendFull,jdbcType=TINYINT},
+    send_full_type = #{record.sendFullType,jdbcType=TINYINT},
+    send_full_other_goods_id = #{record.sendFullOtherGoodsId,jdbcType=BIGINT},
+    money_off_type = #{record.moneyOffType,jdbcType=TINYINT},
+    money_off_prerequisite = #{record.moneyOffPrerequisite,jdbcType=BIGINT},
+    money_off = #{record.moneyOff,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lzdn.ucenter.dao.model.CpyActivity">
+    update cpy_activity
+    <set>
+      <if test="activityName != null">
+        activity_name = #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="activityTypeId != null">
+        activity_type_id = #{activityTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="activityRules != null">
+        activity_rules = #{activityRules,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="activityStatus != null">
+        activity_status = #{activityStatus,jdbcType=TINYINT},
+      </if>
+      <if test="discount != null">
+        discount = #{discount,jdbcType=TINYINT},
+      </if>
+      <if test="sendFull != null">
+        send_full = #{sendFull,jdbcType=TINYINT},
+      </if>
+      <if test="sendFullType != null">
+        send_full_type = #{sendFullType,jdbcType=TINYINT},
+      </if>
+      <if test="sendFullOtherGoodsId != null">
+        send_full_other_goods_id = #{sendFullOtherGoodsId,jdbcType=BIGINT},
+      </if>
+      <if test="moneyOffType != null">
+        money_off_type = #{moneyOffType,jdbcType=TINYINT},
+      </if>
+      <if test="moneyOffPrerequisite != null">
+        money_off_prerequisite = #{moneyOffPrerequisite,jdbcType=BIGINT},
+      </if>
+      <if test="moneyOff != null">
+        money_off = #{moneyOff,jdbcType=BIGINT},
+      </if>
+    </set>
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lzdn.ucenter.dao.model.CpyActivity">
+    update cpy_activity
+    set activity_name = #{activityName,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      activity_type_id = #{activityTypeId,jdbcType=INTEGER},
+      activity_rules = #{activityRules,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=BIGINT},
+      activity_status = #{activityStatus,jdbcType=TINYINT},
+      discount = #{discount,jdbcType=TINYINT},
+      send_full = #{sendFull,jdbcType=TINYINT},
+      send_full_type = #{sendFullType,jdbcType=TINYINT},
+      send_full_other_goods_id = #{sendFullOtherGoodsId,jdbcType=BIGINT},
+      money_off_type = #{moneyOffType,jdbcType=TINYINT},
+      money_off_prerequisite = #{moneyOffPrerequisite,jdbcType=BIGINT},
+      money_off = #{moneyOff,jdbcType=BIGINT}
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>
