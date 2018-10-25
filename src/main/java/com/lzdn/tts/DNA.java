@@ -75,7 +75,7 @@ public class DNA {
             out.write(buffer2, 0, r);
             k++;
         }
-        System.out.println("first12："+readFileFirstByte(fileUrl));
+        System.out.println("first123："+readFileFirstByte(fileUrl));
         out.close();
         is.close();
         return tempUrl;
